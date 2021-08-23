@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Список курсов</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="header">
+  <header th:replace="fragments/header :: header"></header>
+</div>
+<div class="main_title">
+  <h1>Курсы</h1>
+</div>
+
+<form th:method="get" sec:authorize="hasRole('ADMIN')" th:action="@{/course/new}">
+  <button>Создать курс</button>
+</form>
+
+<form class="form_search">
+  <label for="titlePrefix">Поиск по названию</label>
+  <input type="text" id="titlePrefix" name="titlePrefix"/>
+  <button>Найти</button>
+</form>
+
+<table>
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>Название</th>
+    <th>Автор</th>
+    <th>Действие</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:unless="${courses.empty}" th:each="course : ${courses}">
+    <td th:text="${course.id}">id</td>
+    <td>
+      <a th:text="${course.title}" th:href="@{/course/{id}(id = ${course.id})}">Название курса</a>
+    </td>
+    <td th:text="${course.author}">Автор курса</td>
+    <td>
+      <form th:method="delete" sec:authorize="hasRole('ADMIN')" th:action="@{/course/{id}(id = ${course.id})}">
+        <button class="button_delete" type="submit">Удалить</button>
+      </form>
+      <form th:method="get" th:action="@{/course/{id}/assign(id = ${course.id})}">
+        <button type="submit">Назначить</button>
+      </form>
+    </td>
+  </tr>
+  <tr th:if="${courses.empty}" >
+    <td colspan="4">Курсов нет</td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

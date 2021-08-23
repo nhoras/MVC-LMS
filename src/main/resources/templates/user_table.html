@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список пользователей</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="header">
+    <header th:replace="fragments/header :: header"></header>
+</div>
+<div class="main_title">
+    <h1>Пользователи</h1>
+</div>
+
+<form th:method="get" th:action="@{/admin/user/new}">
+    <button>Создать пользователя</button>
+</form>
+
+<form class="form_search">
+    <label for="usernamePrefix">Поиск по имени</label>
+    <input type="text" id="usernamePrefix" name="usernamePrefix"/>
+    <button>Найти</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>Имя</th>
+        <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:unless="${users.empty}" th:each="user : ${users}">
+        <td th:text="${user.id}">id</td>
+        <td>
+            <a th:text="${user.username}" th:href="@{/admin/user/{id}(id = ${user.id})}">Имя пользователя</a>
+        </td>
+        <td>
+            <form th:method="delete" th:action="@{/admin/user/{id}(id = ${user.id})}">
+                <button class="button_delete" type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    <tr th:if="${users.empty}" >
+        <td colspan="3">Пользователей нет</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="UTF-8">
+        <title>Содержимое урока</title>
+        <link rel="stylesheet" th:href="@{/style.css}">
+    </head>
+    <body>
+    <div class="header">
+        <header th:replace="fragments/header :: header"></header>
+    </div>
+        <div class="main">
+            <h1 class="main_title">Содержимое урока</h1>
+        </div>
+    <form th:object="${lesson}" th:method="post" th:action="@{/lesson}">
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{courseId}">
+
+        <div>
+            <h3>Название урока</h3>
+            <input type="text" id="title" th:field="*{title}">
+            <small class="validation-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></small>
+        </div>
+
+        <div>
+            <h3>Содержание урока</h3>
+            <textarea id="text" th:field="*{text}"></textarea>
+            <small class="validation-error" th:if="${#fields.hasErrors('text')}" th:errors="*{text}"></small>
+        </div>
+
+        <div sec:authorize="hasRole('ADMIN')" >
+            <button type="submit">Сохранить</button>
+        </div>
+    </form>
+    </body>
+</html>

@@ -1,0 +1,135 @@
+body {
+    font-family: Helvetica, "Noto Sans", sans-serif;
+    font-size: 18px;
+    color: aliceblue;
+    background: #1c2d4c;
+    background: -webkit-linear-gradient(to right, #6469cb, #654ea3);
+    background: linear-gradient(to right, #2f395c, #654ea3);
+    min-height: 100vh;
+}
+header {
+    padding: 15px;
+    background-color: #e9f9d7;
+}
+.header-span {
+    color: #cad8ff;
+}
+.active {
+    background-color: #64f33b;
+    padding: 13px;
+    border-radius: 6px;
+}
+h1 {
+    color: aliceblue;
+    font-size: 70px;
+    font-weight: 400;
+    text-align: center;
+}
+label {
+    font-size: 20px;
+    font-weight: 400;
+}
+button {
+    background-color: #198754;
+    color: aliceblue;
+    text-align: center;
+    padding: 10px 10px 10px 10px;
+    border-radius: 6px;
+    font-size: 20px;
+    cursor:pointer;
+}
+table {
+    width: 100%;
+    height: 208px;
+    background-color: beige;
+    color: #101111;
+    font-weight: 500;
+    text-align: left;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid burlywood;
+}
+textarea {
+    border-radius: 8px;
+    height: 400px;
+    width: 100%;
+}
+select {
+    width: 100%;
+    font-size: 20px;
+    height: 40px;
+    border-radius: 6px;
+}
+.form-control {
+    width: 30%;
+    height: 80px;
+}
+.error {
+    width: 97%;
+    border: 6px;
+    padding: 15px;
+    background-color: #f9d7d9;
+    border-radius: 6px;
+    font-family: Helvetica, "Noto Sans", sans-serif;
+    font-size: 18px;
+    color: #993e44;
+    margin-top: 5px;
+}
+.main_title {
+
+}
+.form_search {
+    margin-bottom: 10px;
+}
+.button_delete {
+    background-color: #993e44;
+}
+.img_cover {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 0 auto;
+    display: block;
+}
+.img_profile {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 0 auto;
+    display: block;
+}
+.button_right_float {
+    float:right;
+    margin-right: 40px;
+}
+input {
+    border-radius: 8px;
+    height: 40px;
+    width: 50%;
+    font-size: 30px;
+}
+.input_text {
+    width: 97%;
+    margin-bottom: 10px;
+}
+.input_file {
+     width: 70%;
+     background-color: #ffffff;
+     color:#3c3d3d;
+     margin-bottom: 30px;
+     margin-top: 10px;
+}
+.validation-error {
+    color: #da3443;
+    font-size: 18px;
+}
+.auth_button {
+    color: #1c2d4c;
+    float: right;
+    background-color: lightcyan;
+}
+.float-right {
+    float: right;
+}
+
+
+

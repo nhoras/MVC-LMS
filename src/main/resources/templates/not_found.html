@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Курс не найден</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="header">
+    <header th:replace="fragments/header :: header"></header>
+</div>
+<div class="error">
+    <span>Запрашиваемая страница не найдена! Обратитесь к администратору</span>
+</div>
+</body>
+</html>

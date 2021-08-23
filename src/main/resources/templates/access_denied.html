@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Доступ запрещен</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="header">
+    <header th:replace="fragments/header :: header"></header>
+</div>
+<div class="error">
+    <span>Вы не авторизованы для просмотра данной страницы</span>
+</div>
+</body>
+</html>

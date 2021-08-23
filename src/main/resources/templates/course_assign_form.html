@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+        <title>Назначение курса</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="header">
+    <header th:replace="fragments/header :: header"></header>
+</div>
+<div class="main">
+    <h1 class="main_title">Назначить курс</h1>
+</div>
+<form th:unless="${users.isEmpty()}" th:method="post" th:action="@{/course/{courseId}/assign(courseId = ${courseId})}">
+<div class="user_select">
+    <h3>Выберите пользователя:</h3>
+    <select id="userId" name="userId" >
+        <option th:each="user : ${users}"
+                th:value="${user.id}"
+                th:text="${user.username}">Имя</option>
+    </select>
+</div>
+<div class="button_select">
+    <button type="submit">Назначить</button>
+</div>
+</form>
+<form th:if="${users.isEmpty()}" th:method="get" th:action="@{/course/{courseId}(courseId = ${courseId})}">
+    <div class="user_select">
+        <h3>Нет пользователей, доступных для записи</h3>
+    </div>
+    <div class="button_select">
+        <button type="submit">Назад</button>
+    </div>
+</form>
+</body>

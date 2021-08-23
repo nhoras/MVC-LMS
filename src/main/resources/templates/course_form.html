@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Курс</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div class="header">
+  <header th:replace="fragments/header :: header"></header>
+</div>
+<div class="main">
+  <h1 class="main_title">Создание / изменение курса</h1>
+</div>
+<div th:unless="${course.id == null}">
+  <img class="img_cover" th:src="@{/course/cover/{id}(id = ${course.id})}">
+</div>
+<form th:unless="${course.id == null}" th:method="post" th:action="@{/course/cover/{id}(id = ${course.id})}" enctype="multipart/form-data">
+<div class="course_cover" sec:authorize="hasRole('ADMIN')">
+  <label>Выберите обложку курса</label>
+  <br>
+  <input class="input_file" id="cover" name="cover" type="file">
+  <div class="button_right_float">
+    <button>Обновить обложку</button>
+  </div>
+</div>
+</form>
+
+<div>
+<form th:object="${course}" th:method="post" th:action="@{/course}">
+  <input type="hidden" th:field="*{id}">
+  <div>
+    <label for="title">Название курса</label>
+    <input class="input_text" type="text" id="title" th:field="*{title}">
+    <small class="validation-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></small>
+  </div>
+
+  <div>
+    <label for="author">Автор курса</label>
+    <input class="input_text" type="text" id="author" th:field="*{author}">
+    <small class="validation-error" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></small>
+  </div>
+
+  <div sec:authorize="hasRole('ADMIN')" >
+      <button class="button_right_float" type="submit">Сохранить</button>
+  </div>
+</form>
+</div>
+
+<div th:unless="${lessons == null}">
+  <p></p>
+  <p>Уроки, входящие в курс</p>
+  <form th:method="get" sec:authorize="hasRole('ADMIN')" th:action="@{/lesson/new}">
+    <input type="hidden" name="course_id" th:value="${course.id}"/>
+    <button>Новый урок</button>
+  </form>
+  <table>
+    <thead>
+    <tr>
+      <th>id</th>
+      <th>Название урока</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:unless="${lessons.empty}" th:each="lesson : ${lessons}">
+      <td th:text="${lesson.id}">id</td>
+      <td>
+        <a th:text="${lesson.title}" th:href="@{/lesson/{id}(id = ${lesson.id})}">Название урока</a>
+      </td>
+      <td>
+        <form th:method="delete" sec:authorize="hasRole('ADMIN')" th:action="@{/lesson/{id}(id = ${lesson.id})}">
+          <button class="button_delete" type="submit">Удалить</button>
+        </form>
+      </td>
+    </tr>
+    <tr th:if="${lessons.empty}" >
+      <td colspan="3">Уроков нет</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div th:unless="${users == null}">
+  <p>Пользователи, связанные с курсом</p>
+  <form th:method="get" th:action="@{/course/{id}/assign(id=${course.id})}">
+    <button>Записать пользователей</button>
+  </form>
+  <table>
+    <thead>
+    <tr>
+      <th>Id</th>
+      <th>Имя пользователя</th>
+      <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:unless="${users.empty}" th:each="user : ${users}">
+      <td th:text="${user.id}">id</td>
+      <td th:text="${user.username}">Имя пользователя</td>
+      <td>
+        <form th:method="post" th:action="@{/course/{id}/unassign(id = ${course.id})}">
+          <input type="hidden" th:name="userId" th:value="${user.id}">
+          <button class="button_delete" type="submit">Снять с курса</button>
+        </form>
+      </td>
+    </tr>
+    <tr th:if="${users.empty}" >
+      <td colspan="3">Позьзователи не назначены</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
